@@ -126,6 +126,19 @@ public class FirstSteps {
 		
 		
 	}
+	@Test
+	public void mustInteractWithButtons() {
+		
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		WebElement botao = driver.findElement(By.id("ButtonSimple"));
+		
+		botao.click();
+		Assert.assertEquals("Obrigado", botao.getAttribute("value"));
+		driver.quit();
+		
+	}
 	
 	
 	
