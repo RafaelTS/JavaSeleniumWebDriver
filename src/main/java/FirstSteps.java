@@ -70,7 +70,7 @@ public class FirstSteps {
 		WebDriver driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		WebElement element = driver.findElement(By.id("elementosFom:escolaridade"));
+		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
 		Select combo = new Select(element);
 		//this line is for example
 		//combo.selectByIndex(3);
@@ -87,7 +87,7 @@ public class FirstSteps {
 		WebDriver driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		WebElement element = driver.findElement(By.id("elementosFom:escolaridade"));
+		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
 		Select combo = new Select(element);
 		List<WebElement> options = combo.getOptions();
 		Assert.assertEquals(8, options.size());
@@ -109,22 +109,22 @@ public class FirstSteps {
 		WebDriver driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		WebElement element = driver.findElement(By.id("elementosFom:esportes"));
+		WebElement element = driver.findElement(By.id("elementosForm:esportes"));
 		Select combo = new Select(element);
-		combo.selectByVisibleText("Natacao");
+		combo.selectByVisibleText("Futebol");
 		combo.selectByVisibleText("Corrida");
 		combo.selectByVisibleText("O que eh esporte?");
 		
 		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
 		Assert.assertEquals(3, allSelectedOptions.size());
 		
-		combo.deselectByVisibleText("Corrida");
+		combo.deselectByVisibleText("Futebol");
 		
 		allSelectedOptions = combo.getAllSelectedOptions();
 		Assert.assertEquals(2, allSelectedOptions.size());
 		driver.quit();
 		
-		
+
 	}
 	@Test
 	public void mustInteractWithButtons() {
@@ -132,14 +132,13 @@ public class FirstSteps {
 		WebDriver driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		WebElement botao = driver.findElement(By.id("ButtonSimple"));
-		
+		WebElement botao =  driver.findElement(By.id("ButtonSimple"));
 		botao.click();
+		
 		Assert.assertEquals("Obrigado", botao.getAttribute("value"));
 		driver.quit();
 		
-	}
-	
-	
-	
+		
+	}	
+		
 }
