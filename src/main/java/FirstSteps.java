@@ -119,7 +119,7 @@ public class FirstSteps {
 		Assert.assertEquals(2, allSelectedOptions.size());
 		driver.quit();
 		
-	
+
 	}
 	@Test
 	public void mustInteractWithButtons() {
