@@ -70,9 +70,10 @@ public class FirstSteps {
 		//this line is for example
 		//combo.selectByIndex(3);
 		combo.selectByValue("superior");
+		//combo.selectByVisibleText("Superior");
 		//this line is for example
 		//combo.deselectByVisibleText("mestrado");
-		Assert.assertEquals("superior", combo.getFirstSelectedOption().getText());
+		Assert.assertEquals("Superior", combo.getFirstSelectedOption().getText());
 		driver.quit();
 	}
 	
@@ -97,6 +98,8 @@ public class FirstSteps {
 		
 		}
 		Assert.assertTrue(encontrou);
+		
+		driver.quit();
 	}
 	@Test
 	public void mustInteractWithMultiplusCombos() {
