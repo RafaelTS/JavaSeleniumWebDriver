@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +9,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class RegistrationChallenge {
+	
+	private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+				
+	}
+	
+	@After
+	public void finaliza() {
+		driver.quit();
+	}
+
 
 	@Test
 	public void makeSimpleRegister() {
@@ -17,15 +35,10 @@ public class RegistrationChallenge {
 		 * food, degree level and others
 		 */
 
-		WebDriver driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Rafael");
 		Assert.assertEquals("Rafael", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Teixeira");
 		Assert.assertEquals("Teixeira", driver.findElement(By.id("elementosForm:sobrenome")).getAttribute("value"));
-
 		driver.findElement(By.id("elementosForm:sexo:0")).click();
 		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
 
@@ -42,8 +55,6 @@ public class RegistrationChallenge {
 		comboSport.selectByVisibleText("O que eh esporte?");
 
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
-
-		driver.quit();
 
 	}
 }
