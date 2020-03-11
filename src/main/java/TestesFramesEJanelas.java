@@ -2,71 +2,63 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
-
 public class TestesFramesEJanelas {
-	
+
 	private WebDriver driver;
-	
+	private DSL dsl;
+
 	@Before
 	public void inicializa() {
 		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-				
+
 	}
-	
+
 	@After
 	public void finaliza() {
 		driver.quit();
 	}
 
-	
 	@Test
-	public void mustInteractWithFrames(){
-		
-		driver.switchTo().frame("frame1");
-		driver.findElement(By.id("frameButton")).click();
-		Alert alerta = driver.switchTo().alert();
-		String mensagem = alerta.getText();
+	public void mustInteractWithFrames() {
+
+		dsl.entrarFrame("frame1");
+		dsl.clicarBotao("frameButton");
+		String mensagem = dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Frame OK!", mensagem);
-		alerta.accept();
-		
-		driver.switchTo().defaultContent();
-		driver.findElement(By.id("elementosForm:nome")).sendKeys(mensagem);
-		
+		dsl.sairFrame();
+		dsl.escreve("elementosForm:nome", mensagem);
+
 	}
-	
+
 	@Test
-	public void mustInteractWithWindows(){
-		
-		driver.findElement(By.id("ButtonPopUpEasy")).click();
-		driver.switchTo().window("Popup");
-		driver.findElement(By.tagName("textArea")).sendKeys("Deu certo?");
+	public void mustInteractWithWindows() {
+
+		dsl.clicarBotao("ButtonPopUpEasy");
+		dsl.trocarJanela("Popup");
+		dsl.escreve(By. tagName("textArea"), "Deu Certo?");
 		driver.close();
-		driver.switchTo().window("");
-		driver.findElement(By.tagName("textArea")).sendKeys("Certamente!");
-		
+		dsl.trocarJanela("");
+		dsl.escreve("textArea", "Certamente");
+
 	}
-	
+
 	@Test
-	public void mustInteractWithWindowsWithoutTitle(){
-		
-		driver.findElement(By.id("ButtonPopUpHard")).click();
-		//System.out.println(driver.getWindowHandle());
-		//System.out.println(driver.getWindowHandles());
-		driver.switchTo().window((String) driver.getWindowHandles().toArray()[1]);
-		driver.findElement(By.tagName("textArea")).sendKeys("Deu certo?");
-		driver.close();
-		
-		driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
-		driver.findElement(By.tagName("textArea")).sendKeys("E agora??");
-		
-	}	
+	public void mustInteractWithWindowsWithoutTitle() {
+
+		dsl.clicarBotao("ButtonPopUpHard");
+		System.out.print(driver.getWindowHandle());
+		System.out.print(driver.getWindowHandles());
+		dsl.trocarJanela((String)driver.getWindowHandles().toArray()[1]);
+		dsl.escreve("textArea", "Deu Certo?");
+		dsl.trocarJanela((String)driver.getWindowHandles().toArray()[0]);
+		dsl.escreve("textArea", "e agora?");
+
+	}
 
 }

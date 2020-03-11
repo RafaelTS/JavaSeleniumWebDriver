@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
 public class FirstSteps {
 
 	private WebDriver driver;
@@ -34,6 +33,16 @@ public class FirstSteps {
 		dsl.escreve("elementosForm:nome", "Teste de Escrita");
 		Assert.assertEquals("Teste de Escrita", dsl.obterValorCampo("elementosForm:nome"));
 
+	}
+	
+	@Test
+	public void testTextFieldDuplo(){
+		
+		dsl.escreve("elementosForm:nome", "Rafael");
+		Assert.assertEquals("Rafael", dsl.obterValorCampo("elementosForm:nome"));
+		dsl.escreve("elementosForm:nome", "Raquel");
+		Assert.assertEquals("Raquel", dsl.obterValorCampo("elementosForm:nome"));
+		
 	}
 
 	@Test
@@ -115,10 +124,6 @@ public class FirstSteps {
 	@Test
 	public void mustSearchTextInPage() {
 
-		// in this case, you can use it, but doesn't perform well because the
-		// system will be search all the html
-		// Assert.assertTrue(driver.findElement(By.tagName("Body")).getText().contains("Campo
-		// de Treinamento"));
 		Assert.assertEquals("Campo de Treinamento", dsl.obterTexto(By.tagName("h3")));
 		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", dsl.obterTexto(By.className("facilAchar")));
 
