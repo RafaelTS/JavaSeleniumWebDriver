@@ -1,3 +1,4 @@
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +11,7 @@ public class RegistrationChallenge {
 
 	private WebDriver driver;
 	private DSL dsl;
+	private RegistrationChallengePage page;
 
 	@Before
 	public void inicializa() {
@@ -17,6 +19,7 @@ public class RegistrationChallenge {
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		dsl = new DSL(driver);
+		page = new RegistrationChallengePage(driver);
 	}
 
 	@After
@@ -57,16 +60,16 @@ public class RegistrationChallenge {
 		/*
 		 * In this register, There're the teacher correction about the up correction
 		 */
-
-		dsl.escreve("elementosForm:nome", "Rafael");
-		dsl.escreve("elementosForm:sobrenome", "Teixeira");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarRadio("elementosForm:comidaFavorita:2");
-		dsl.selecionarCombo("elementosForm:escolaridade", "superior");
-		dsl.selecionarCombo("elementosForm:esportes", "natacao");
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.setNome("Rafael");
+		page.setSobrenome("Teixeira");
+		page.setSexoMasculino();
+		page.setComidaPizza();
+		page.setEscolaridade("Superior");
+		page.setEsporte("Natacao");
+		page.cadastrar();
 		
-		Assert.assertTrue(dsl.obterTexto("resultado").startsWith("Cadastrado!"));
+		
+		Assert.assertTrue(page.obterResultado().startsWith("Cadastrado!"));
 		Assert.assertTrue(dsl.obterTexto("descNome").endsWith("Rafael"));
 		Assert.assertEquals("Sobrenome: Teixeira", dsl.obterTexto("descSobrenome"));
 		Assert.assertEquals("Sexo: Masculino", dsl.obterTexto("descSexo"));
