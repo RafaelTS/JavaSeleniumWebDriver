@@ -17,6 +17,7 @@ public class DSL {
 	/******** TextField and TextArea **********/
 
 	public void escreve(By by, String texto) {
+		driver.findElement(by).clear();
 		driver.findElement(by).sendKeys(texto);
 
 	}
@@ -160,6 +161,14 @@ public class DSL {
 		alert.dismiss();
 		return valor;
 	}
+	
+	public void alertaEscrever(String valor){
+		
+		Alert alert = driver.switchTo().alert();
+		alert.sendKeys(valor);
+		alert.accept();
+	}
+	
 	/******** Frames e Janelas **********/
 	
 	public void entrarFrame(String id){

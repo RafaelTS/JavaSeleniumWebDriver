@@ -2,11 +2,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class RulesChallenge {
 
@@ -67,25 +64,25 @@ public class RulesChallenge {
 
 		dsl.escreve("elementosForm:nome", "Rafael");
 		dsl.escreve("elementosForm:sobrenome", "Teixeira");
-		
+		dsl.clicarRadio("elementosForm:sexo:0");
+		dsl.clicarRadio("elementosForm:comidaFavorita:0");
+		dsl.clicarRadio("elementosForm:comidaFavorita:3");
 		dsl.clicarBotao("elementosForm:Cadastrar");
-		Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita());
 
 	}
 
 	@Test
 	public void mustValidateSports() {
 
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Rafael");
-		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Teixeira");
-		driver.findElement(By.id("elementosForm:sexo:0")).click();
-		driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
-		Select combo = new Select(driver.findElement(By.id("elementosForm:esportes")));
-		combo.selectByVisibleText("Karate");
-		combo.selectByVisibleText("O que eh esporte?");
-		driver.findElement(By.id("elementosForm:cadastrar")).click();
-		Alert alerta = driver.switchTo().alert();
-		Assert.assertEquals("Voce faz esporte ou nao?", alerta.getText());
+		dsl.escreve("elementosForm:nome", "Rafael");
+		dsl.escreve("elementosForm:sobrenome", "Teixeira");
+		dsl.clicarRadio("elementosForm:sexo:0");
+		dsl.clicarRadio("elementosForm:comidaFavorita:0");
+		dsl.selecionarCombo("elementosForm:esportes", "natacao");
+		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
+		dsl.clicarBotao("elementosForm:Cadastrar");
+		Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
 
 	}
 }

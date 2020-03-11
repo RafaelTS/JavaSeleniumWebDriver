@@ -2,11 +2,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
+
 
 public class RegistrationChallenge {
 
@@ -34,28 +32,24 @@ public class RegistrationChallenge {
 		 * I'll put a name, last name, in a send key insertion, choise a sport, favorite
 		 * food, degree level and others
 		 */
+		dsl.escreve("elementosForm:nome", "Rafael");
+		Assert.assertTrue(dsl.obterTexto("descNome").endsWith("Rafael"));
+		dsl.escreve("elementosForm:sobrenome", "Teixeira");
+		Assert.assertEquals("Sobrenome: Teixeira", dsl.obterTexto("descSobrenome"));
+		dsl.clicarRadio("elementosForm:sexo:0");
+		Assert.assertEquals("Sexo: Masculino", dsl.obterTexto("descSexo"));
 
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Rafael");
-		Assert.assertEquals("Rafael", driver.findElement(By.id("elementosForm:nome")).getAttribute("value"));
-		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Teixeira");
-		Assert.assertEquals("Teixeira", driver.findElement(By.id("elementosForm:sobrenome")).getAttribute("value"));
-		driver.findElement(By.id("elementosForm:sexo:0")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+		dsl.clicarCheck(("elementosForm:comidaFavorita:2"));
+		Assert.assertEquals("Comida: Pizza", dsl.obterTexto("descComida"));
 
-		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-		Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:2")).isSelected());
+		dsl.selecionarCombo("elementosForm:escolaridade", "superior");
+		Assert.assertEquals("Escolaridade: superior", dsl.obterTexto("descEscolaridade"));
 
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-		Select combo = new Select(element);
-		combo.selectByValue("superior");
-		Assert.assertEquals("Superior", combo.getFirstSelectedOption().getText());
+		dsl.selecionarCombo("elementosForm:esportes", "natacao");
+		Assert.assertEquals("Esportes: Natacao", dsl.obterTexto("descEsportes"));
 
-		WebElement elementSport = driver.findElement(By.id("elementosForm:esportes"));
-		Select comboSport = new Select(elementSport);
-		comboSport.selectByVisibleText("O que eh esporte?");
-
-		driver.findElement(By.id("elementosForm:cadastrar")).click();
-
+		dsl.clicarBotao("elementosForm:cadastrar");
+		
 	}
 
 	@Test
