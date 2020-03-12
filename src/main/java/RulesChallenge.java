@@ -15,6 +15,7 @@ public class RulesChallenge {
 
 	private WebDriver driver;
 	private DSL dsl;
+	private RegistrationChallengePage page;
 	
 	
 	@Before
@@ -22,6 +23,8 @@ public class RulesChallenge {
 		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
+		page = new RegistrationChallengePage(driver);
 
 	}
 
@@ -33,16 +36,16 @@ public class RulesChallenge {
 	@Test
 	public void mustValidateMandatoryName() {
 		
-		dsl.clicarBotao("elementosForm:cadastrar");
+		page.cadastrar();
 		Assert.assertEquals("Nome eh obrigatorio", dsl.alertaObterTextoEAceita());
 
 	}
 
 	@Test
 	public void mustValidateMandatoryLastName() {
-
-		dsl.escreve("elementosForm:nome", "Rafael");
-		dsl.clicarBotao("elementosForm:Cadastrar");
+		
+		page.setNome("Rafael");
+		page.cadastrar();
 		Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
 
 	}
@@ -50,9 +53,9 @@ public class RulesChallenge {
 	@Test
 	public void mustValidateSex() {
 
-		dsl.escreve("elementosForm:nome", "Rafael");
-		dsl.escreve("elementosForm:sobrenome", "Teixeira");
-		dsl.clicarBotao("elementosForm:Cadastrar");
+		page.setNome("Rafael");
+		page.setSobrenome("Teixeira");
+		page.cadastrar();
 		Assert.assertEquals("Sexo eh obrigatorio", dsl.alertaObterTextoEAceita());
 		
 		//continuar daqui e validar porque não tem que trocar a janela.... deve ter na aula de dsl no cmoeço
@@ -62,12 +65,12 @@ public class RulesChallenge {
 	@Test
 	public void mustValidateVegetarian() {
 
-		dsl.escreve("elementosForm:nome", "Rafael");
-		dsl.escreve("elementosForm:sobrenome", "Teixeira");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarRadio("elementosForm:comidaFavorita:0");
-		dsl.clicarRadio("elementosForm:comidaFavorita:3");
-		dsl.clicarBotao("elementosForm:Cadastrar");
+		page.setNome("Rafael");
+		page.setSobrenome("Teixeira");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setComidaVegetariano();
+		page.cadastrar();
 		Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita());
 
 	}
@@ -75,13 +78,12 @@ public class RulesChallenge {
 	@Test
 	public void mustValidateSports() {
 
-		dsl.escreve("elementosForm:nome", "Rafael");
-		dsl.escreve("elementosForm:sobrenome", "Teixeira");
-		dsl.clicarRadio("elementosForm:sexo:0");
-		dsl.clicarRadio("elementosForm:comidaFavorita:0");
-		dsl.selecionarCombo("elementosForm:esportes", "natacao");
-		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
-		dsl.clicarBotao("elementosForm:Cadastrar");
+		page.setNome("Rafael");
+		page.setSobrenome("Teixeira");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setEsporte("Natacao", "O que eh esporte?");
+		page.cadastrar();
 		Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
 
 	}
