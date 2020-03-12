@@ -56,7 +56,7 @@ public class DSL {
 
 		WebElement element = driver.findElement(By.id(id));
 		Select combo = new Select(element);
-		combo.selectByValue(valor);
+		combo.selectByVisibleText(valor);
 
 	}
 

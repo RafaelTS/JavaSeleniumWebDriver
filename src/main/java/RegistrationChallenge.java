@@ -1,4 +1,3 @@
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -60,8 +59,8 @@ public class RegistrationChallenge {
 		/*
 		 * In this register, There're the teacher correction about the up correction
 		 */
-		page.setNome("Rafael");
-		page.setSobrenome("Teixeira");
+		page.setNome("Raquel");
+		page.setSobrenome("Custodio");
 		page.setSexoMasculino();
 		page.setComidaPizza();
 		page.setEscolaridade("Superior");
@@ -69,13 +68,13 @@ public class RegistrationChallenge {
 		page.cadastrar();
 		
 		
-		Assert.assertTrue(page.obterResultado().startsWith("Cadastrado!"));
-		Assert.assertTrue(dsl.obterTexto("descNome").endsWith("Rafael"));
-		Assert.assertEquals("Sobrenome: Teixeira", dsl.obterTexto("descSobrenome"));
-		Assert.assertEquals("Sexo: Masculino", dsl.obterTexto("descSexo"));
-		Assert.assertEquals("Comida: Pizza", dsl.obterTexto("descComida"));
-		Assert.assertEquals("Escolaridade: superior", dsl.obterTexto("descEscolaridade"));
-		Assert.assertEquals("Esportes: Natacao", dsl.obterTexto("descEsportes"));
+		Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
+		Assert.assertTrue(page.obterNomeCadastro().endsWith("Raquel"));
+		Assert.assertEquals("Sobrenome: Custodio", page.obterSobrenomeCadastro());
+		Assert.assertEquals("Sexo: Feminino", page.obterSexoCadastro());
+		Assert.assertEquals("Comida: Pizza", page.obterComidaCadastro());
+		Assert.assertEquals("Escolaridade: superior", page.obterEscolaridadeCadastro());
+		Assert.assertEquals("Esportes: Natacao", page.obterEsportesCadastro());
 
 	}
 
