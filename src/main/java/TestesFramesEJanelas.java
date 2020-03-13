@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestesFramesEJanelas {
@@ -16,6 +17,7 @@ public class TestesFramesEJanelas {
 		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 
 	}
 
@@ -35,6 +37,18 @@ public class TestesFramesEJanelas {
 		dsl.escreve("elementosForm:nome", mensagem);
 
 	}
+	
+	@Test
+	public void mustInteractWithHiddenFrames() {
+		WebElement frame = driver.findElement(By.id("frame2"));
+		dsl.executarJs("window.scrollBy(0,arguments[0])", frame.getLocation().y);
+		dsl.entrarFrame("frame1");
+		dsl.clicarBotao("frameButton");
+		String mensagem = dsl.alertaObterTextoEAceita();
+		Assert.assertEquals("Frame OK!", mensagem);
+		
+	}
+
 
 	@Test
 	public void mustInteractWithWindows() {
