@@ -78,4 +78,6 @@ public class RegistrationChallengePage {
 	public String obterEsportesCadastro() {
 		return dsl.obterTexto(By.xpath("//*[@id='descEsportes']/span"));
 	}
+	
+	
 }
