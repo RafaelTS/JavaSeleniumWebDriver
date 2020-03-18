@@ -61,20 +61,20 @@ public class RegistrationChallenge {
 		 */
 		page.setNome("Raquel");
 		page.setSobrenome("Custodio");
-		page.setSexoMasculino();
+		page.setSexoFeminino();
 		page.setComidaPizza();
 		page.setEscolaridade("Superior");
 		page.setEsporte("Natacao");
 		page.cadastrar();
 		
 		
-		Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
-		Assert.assertTrue(page.obterNomeCadastro().endsWith("Raquel"));
-		Assert.assertEquals("Sobrenome: Custodio", page.obterSobrenomeCadastro());
-		Assert.assertEquals("Sexo: Feminino", page.obterSexoCadastro());
-		Assert.assertEquals("Comida: Pizza", page.obterComidaCadastro());
-		Assert.assertEquals("Escolaridade: superior", page.obterEscolaridadeCadastro());
-		Assert.assertEquals("Esportes: Natacao", page.obterEsportesCadastro());
+		Assert.assertEquals("Cadastrado!", page.obterResultadoCadastro());
+		Assert.assertEquals("Raquel", page.obterNomeCadastro());
+		Assert.assertEquals("Custodio", page.obterSobrenomeCadastro());
+		Assert.assertEquals("Feminino", page.obterSexoCadastro());
+		Assert.assertEquals("Pizza", page.obterComidaCadastro());
+		Assert.assertEquals("superior", page.obterEscolaridadeCadastro());
+		Assert.assertEquals("Natacao", page.obterEsportesCadastro());
 
 	}
 
