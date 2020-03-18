@@ -34,10 +34,16 @@ public class DSL {
 	}
 	/******** Radio and Check **********/
 	
-	public void clicarRadio(String id) {
-		driver.findElement(By.id(id)).click();
+	public void clicarRadio(By by) {
+		driver.findElement(by).click();
 
 	}
+	
+	public void clicarRadio(String id) {
+		clicarRadio(By.id(id));
+
+	}
+
 
 	public boolean isRadioMarcado(String id) {
 		return driver.findElement(By.id(id)).isSelected();
@@ -111,7 +117,11 @@ public class DSL {
 		}
 		return false;
 	}
-
+	public void selecionarComboPrime(String radical, String valor){
+		clicarRadio(By.xpath("//*[@id='"+radical+"_input']/../..//span"));
+		clicarRadio(By.xpath(".//*[@id='"+radical+"']//li[.='"+valor+"']"));
+		
+	}
 	/**** Botao ******/
 
 	public void clicarBotao(String id) {
