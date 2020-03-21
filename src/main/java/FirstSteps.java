@@ -1,32 +1,31 @@
+import static br.sc.java.core.DriverFactory.getDriver;
+import static br.sc.java.core.DriverFactory.killDriver;
+
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class FirstSteps {
 
-	private WebDriver driver;
 	private DSL dsl;
 
 	@Before
 	public void inicializa() {
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
 
 	}
 
 	@After
 	public void finaliza() {
-		driver.quit();
+		killDriver();
 	}
 
 	@Test
@@ -110,7 +109,7 @@ public class FirstSteps {
 
 		dsl.clicarBotao("ButtonSimple");
 
-		WebElement botao = driver.findElement(By.id("ButtonSimple"));
+		WebElement botao = getDriver().findElement(By.id("ButtonSimple"));
 		Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
 
 	}
@@ -131,11 +130,11 @@ public class FirstSteps {
 	}
 	@Test
 	public void testJavascript(){
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript("document.getElementById('elementosForm:nome').value = 'Escrito via js'");
 		js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'radio'");
 		
-		WebElement element = driver.findElement(By.id("elementosForm:nome"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
 		js.executeScript("arguments[0].style.border = arguments[1]", element, "solid 4px red");
 	}
 	
