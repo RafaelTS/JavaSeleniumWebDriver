@@ -1,12 +1,11 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class RegistrationChallengePage {
 	
 	private DSL dsl;
 	
-	public RegistrationChallengePage(WebDriver driver){
-		dsl = new DSL(driver);
+	public RegistrationChallengePage(){
+		dsl = new DSL();
 	}
 	
 	public void setNome(String nome){
@@ -77,7 +76,6 @@ public class RegistrationChallengePage {
 
 	public String obterEsportesCadastro() {
 		return dsl.obterTexto(By.xpath("//*[@id='descEsportes']/span"));
-	}
-	
+	}	
 	
 }

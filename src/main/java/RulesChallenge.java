@@ -1,9 +1,10 @@
+import static br.sc.java.core.DriverFactory.getDriver;
+import static br.sc.java.core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class RulesChallenge {
 
@@ -13,24 +14,20 @@ public class RulesChallenge {
 	 * Carne e vegetariano N pode marcar algum esporte e o que é esporte
 	 */
 
-	private WebDriver driver;
 	private DSL dsl;
 	private RegistrationChallengePage page;
 	
 	
 	@Before
 	public void inicializa() {
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new RegistrationChallengePage(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		page = new RegistrationChallengePage();
 
 	}
 
 	@After
 	public void finaliza() {
-		driver.quit();
+		killDriver();
 	}
 
 	@Test
