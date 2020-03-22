@@ -1,3 +1,4 @@
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 import static br.sc.java.core.DriverFactory.killDriver;
 
@@ -9,6 +10,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import br.sc.java.core.DSL;
 
 public class TesteSincronismo {
 
@@ -29,7 +32,7 @@ public class TesteSincronismo {
 	public void deveUtilizarEsperaFixa() throws InterruptedException {
 		dsl.clicarBotao("buttonDelay");
 		Thread.sleep(5000); // not good
-		dsl.escreve("novoCampo", "Deu Certo?");
+		dsl.escrever("novoCampo", "Deu Certo?");
 
 	}
 
@@ -39,7 +42,7 @@ public class TesteSincronismo {
 		// execuções
 		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		dsl.clicarBotao("buttonDelay");
-		dsl.escreve("novoCampo", "Deu Certo?");
+		dsl.escrever("novoCampo", "Deu Certo?");
 		// aqui embaixo, caso o código já esteja pronto ele vai finalizar o tempo de
 		// execução
 		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -52,7 +55,7 @@ public class TesteSincronismo {
 		WebDriverWait wait = new WebDriverWait(getDriver(), 30);
 		// nesse caso vai esperar somente o campo que eu to esperando
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
-		dsl.escreve("novoCampo", "Deu Certo?");
+		dsl.escrever("novoCampo", "Deu Certo?");
 
 	}
 

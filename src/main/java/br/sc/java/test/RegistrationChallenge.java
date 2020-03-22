@@ -1,12 +1,14 @@
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
-import static br.sc.java.core.DriverFactory.killDriver;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RegistrationChallenge {
+import br.sc.java.core.BaseTeste;
+import br.sc.java.page.RegistrationChallengePage;
+
+public class RegistrationChallenge extends BaseTeste {
 
 	private RegistrationChallengePage page;
 
@@ -14,11 +16,6 @@ public class RegistrationChallenge {
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new RegistrationChallengePage();
-	}
-
-	@After
-	public void finaliza() {
-		killDriver();
 	}
 
 	@Test
