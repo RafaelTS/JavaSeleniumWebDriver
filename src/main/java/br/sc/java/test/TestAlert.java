@@ -1,9 +1,12 @@
+package br.sc.java.test;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import br.sc.java.core.DSL;
 
 public class TestAlert {
 	
@@ -30,7 +33,7 @@ public class TestAlert {
 		String texto = dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Alert Simples", texto);
 		
-		dsl.escreve("elementosForm:nome", texto);
+		dsl.escrever("elementosForm:nome", texto);
 	}
 	
 	@Test

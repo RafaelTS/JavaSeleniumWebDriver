@@ -1,3 +1,4 @@
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 
 import java.util.Arrays;
@@ -13,6 +14,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.WebDriver;
+
+import br.sc.java.core.DSL;
+import br.sc.java.page.RegistrationChallengePage;
 
 @RunWith(Parameterized.class)
 public class TesteRegrasCadastro {

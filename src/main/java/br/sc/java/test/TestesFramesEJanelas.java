@@ -1,3 +1,4 @@
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 import static br.sc.java.core.DriverFactory.killDriver;
 
@@ -7,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import br.sc.java.core.DSL;
 
 public class TestesFramesEJanelas {
 
@@ -32,14 +35,14 @@ public class TestesFramesEJanelas {
 		String mensagem = dsl.alertaObterTextoEAceita();
 		Assert.assertEquals("Frame OK!", mensagem);
 		dsl.sairFrame();
-		dsl.escreve("elementosForm:nome", mensagem);
+		dsl.escrever("elementosForm:nome", mensagem);
 
 	}
 	
 	@Test
 	public void mustInteractWithHiddenFrames() {
 		WebElement frame = getDriver().findElement(By.id("frame2"));
-		dsl.executarJs("window.scrollBy(0,arguments[0])", frame.getLocation().y);
+		dsl.executarJS("window.scrollBy(0,arguments[0])", frame.getLocation().y);
 		dsl.entrarFrame("frame1");
 		dsl.clicarBotao("frameButton");
 		String mensagem = dsl.alertaObterTextoEAceita();
@@ -53,10 +56,10 @@ public class TestesFramesEJanelas {
 
 		dsl.clicarBotao("ButtonPopUpEasy");
 		dsl.trocarJanela("Popup");
-		dsl.escreve(By. tagName("textArea"), "Deu Certo?");
+		dsl.escrever(By. tagName("textArea"), "Deu Certo?");
 		getDriver().close();
 		dsl.trocarJanela("");
-		dsl.escreve("textArea", "Certamente");
+		dsl.escrever("textArea", "Certamente");
 
 	}
 
@@ -67,9 +70,9 @@ public class TestesFramesEJanelas {
 		System.out.print(getDriver().getWindowHandle());
 		System.out.print(getDriver().getWindowHandles());
 		dsl.trocarJanela((String)getDriver().getWindowHandles().toArray()[1]);
-		dsl.escreve("textArea", "Deu Certo?");
+		dsl.escrever("textArea", "Deu Certo?");
 		dsl.trocarJanela((String)getDriver().getWindowHandles().toArray()[0]);
-		dsl.escreve("textArea", "e agora?");
+		dsl.escrever("textArea", "e agora?");
 
 	}
 

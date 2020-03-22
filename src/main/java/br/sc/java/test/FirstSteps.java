@@ -1,3 +1,4 @@
+	package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 import static br.sc.java.core.DriverFactory.killDriver;
 
@@ -11,6 +12,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+
+import br.sc.java.core.DSL;
 
 public class FirstSteps {
 
@@ -30,7 +33,7 @@ public class FirstSteps {
 
 	@Test
 	public void mustInteractWithTextField() {
-		dsl.escreve("elementosForm:nome", "Teste de Escrita");
+		dsl.escrever("elementosForm:nome", "Teste de Escrita");
 		Assert.assertEquals("Teste de Escrita", dsl.obterValorCampo("elementosForm:nome"));
 
 	}
@@ -38,17 +41,17 @@ public class FirstSteps {
 	@Test
 	public void testTextFieldDuplo(){
 		
-		dsl.escreve("elementosForm:nome", "Rafael");
+		dsl.escrever("elementosForm:nome", "Rafael");
 		Assert.assertEquals("Rafael", dsl.obterValorCampo("elementosForm:nome"));
-		dsl.escreve("elementosForm:nome", "Raquel");
+		dsl.escrever("elementosForm:nome", "Raquel");
 		Assert.assertEquals("Raquel", dsl.obterValorCampo("elementosForm:nome"));
 		
 	}
 
 	@Test
 	public void mustInteractWithTextArea() {
-		dsl.escreve("elementosForm:sugestoes", "Teste \n quer dizer nova linha");
-		Assert.assertEquals("Teste\nquer dizer nova linha", dsl.obterValorCampo("elementosForm:sugestoes"));
+		dsl.escrever("elementosForm:sugestoes", "Teste \n quer dizer nova linha");
+		Assert.assertEquals("Teste \n quer dizer nova linha", dsl.obterValorCampo("elementosForm:sugestoes"));
 
 	}
 
@@ -69,8 +72,8 @@ public class FirstSteps {
 	@Test
 	public void mustInteractWithCombo() {
 
-		dsl.selecionarCombo("elementosForm:escolaridade", "superior");
-		Assert.assertEquals("Superior", dsl.obterValorCampo("elementosForm:escolaridade"));
+		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
+		Assert.assertEquals("superior", dsl.obterValorCampo("elementosForm:escolaridade"));
 		// this line is for example
 		// combo.selectByIndex(3);
 		// combo.selectByVisibleText("Superior");

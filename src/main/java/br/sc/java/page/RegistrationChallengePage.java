@@ -1,20 +1,17 @@
+package br.sc.java.page;
 import org.openqa.selenium.By;
 
-public class RegistrationChallengePage {
-	
-	private DSL dsl;
-	
-	public RegistrationChallengePage(){
-		dsl = new DSL();
-	}
+import br.sc.java.core.BasePage;
+
+public class RegistrationChallengePage extends BasePage  {
 	
 	public void setNome(String nome){
-		dsl.escreve("elementosForm:nome", nome);
+		dsl.escrever("elementosForm:nome", nome);
 		
 	}
 	
 	public void setSobrenome(String sobrenome){
-		dsl.escreve("elementosForm:sobrenome", sobrenome);
+		dsl.escrever("elementosForm:sobrenome", sobrenome);
 		
 	}
 	public void setSexoMasculino(){

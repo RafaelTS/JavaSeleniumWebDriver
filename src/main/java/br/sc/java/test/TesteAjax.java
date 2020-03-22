@@ -1,3 +1,4 @@
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 import static br.sc.java.core.DriverFactory.killDriver;
 
@@ -8,6 +9,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import br.sc.java.core.DSL;
 
 
 public class TesteAjax {
@@ -29,7 +32,7 @@ public class TesteAjax {
 	@Test
 	public void testeAjax() {
 		
-		dsl.escreve("j_idt720:name", "Teste");
+		dsl.escrever("j_idt720:name", "Teste");
 		dsl.clicarBotao("j_idt720:j_idt723");
 		WebDriverWait wait = new WebDriverWait(getDriver(), 30);
 		wait.until(ExpectedConditions.textToBe(By.id("j_idt720:display"), "Teste"));

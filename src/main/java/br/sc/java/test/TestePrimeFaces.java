@@ -1,3 +1,4 @@
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 import static br.sc.java.core.DriverFactory.killDriver;
 
@@ -6,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+
+import br.sc.java.core.DSL;
 
 public class TestePrimeFaces {
 	
