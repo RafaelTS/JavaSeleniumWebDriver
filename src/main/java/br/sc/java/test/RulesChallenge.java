@@ -32,7 +32,7 @@ public class RulesChallenge extends BaseTeste {
 	public void mustValidateMandatoryName() {
 		
 		page.cadastrar();
-		Assert.assertEquals("Nome eh obrigatorio", dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("msg", dsl.alertaObterTextoEAceita());
 
 	}
 
