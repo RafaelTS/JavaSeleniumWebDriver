@@ -8,11 +8,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import br.sc.java.test.RegistrationChallenge;
-import br.sc.java.test.RulesChallenge;
+import br.sc.java.test.TesteRegrasCadastro;
 
 @RunWith(Suite.class)
 @SuiteClasses({ RegistrationChallenge.class, 
-				RulesChallenge.class, 
+				TesteRegrasCadastro.class, 
 				})
 public class TesteSuite {
 	

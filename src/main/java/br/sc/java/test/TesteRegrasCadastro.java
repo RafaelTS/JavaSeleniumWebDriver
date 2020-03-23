@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +12,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.WebDriver;
 
+import br.sc.java.core.BaseTeste;
 import br.sc.java.core.DSL;
 import br.sc.java.page.RegistrationChallengePage;
 
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BaseTeste{
 
-	private WebDriver driver;
 	private DSL dsl;
 	private RegistrationChallengePage page;
 
@@ -43,11 +41,6 @@ public class TesteRegrasCadastro {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		dsl = new DSL();
 		page = new RegistrationChallengePage();
-	}
-
-	@After
-	public void finaliza() {
-		driver.quit();
 	}
 
 	@Parameters
