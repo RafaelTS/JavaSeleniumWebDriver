@@ -11,16 +11,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import br.sc.java.core.DSL;
+import br.sc.java.core.BasePage;
 
 public class TesteSincronismo {
 
-	private DSL dsl;
+	private BasePage page;
 
 	@Before
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL();
+		page = new BasePage();
 	}
 
 	@After
@@ -30,9 +30,9 @@ public class TesteSincronismo {
 
 	@Test
 	public void deveUtilizarEsperaFixa() throws InterruptedException {
-		dsl.clicarBotao("buttonDelay");
+		page.clicarBotao("buttonDelay");
 		Thread.sleep(5000); // not good
-		dsl.escrever("novoCampo", "Deu Certo?");
+		page.escrever("novoCampo", "Deu Certo?");
 
 	}
 
@@ -41,8 +41,8 @@ public class TesteSincronismo {
 		// este código pode ir no inicializa, caso a espera precise do tempo em todas as
 		// execuções
 		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		dsl.clicarBotao("buttonDelay");
-		dsl.escrever("novoCampo", "Deu Certo?");
+		page.clicarBotao("buttonDelay");
+		page.escrever("novoCampo", "Deu Certo?");
 		// aqui embaixo, caso o código já esteja pronto ele vai finalizar o tempo de
 		// execução
 		getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -51,11 +51,11 @@ public class TesteSincronismo {
 
 	@Test
 	public void deveUtilizarEsperaExplicita() throws InterruptedException {
-		dsl.clicarBotao("buttonDelay");
+		page.clicarBotao("buttonDelay");
 		WebDriverWait wait = new WebDriverWait(getDriver(), 30);
 		// nesse caso vai esperar somente o campo que eu to esperando
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
-		dsl.escrever("novoCampo", "Deu Certo?");
+		page.escrever("novoCampo", "Deu Certo?");
 
 	}
 

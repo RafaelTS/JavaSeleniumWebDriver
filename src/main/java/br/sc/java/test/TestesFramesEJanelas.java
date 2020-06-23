@@ -9,16 +9,16 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import br.sc.java.core.DSL;
+import br.sc.java.core.BasePage;
 
 public class TestesFramesEJanelas {
 
-	private DSL dsl;
+	private BasePage dsl;
 
 	@Before
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL();
+		dsl = new BasePage();
 
 	}
 

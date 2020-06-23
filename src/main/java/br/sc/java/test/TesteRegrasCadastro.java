@@ -14,13 +14,11 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import br.sc.java.core.BaseTeste;
-import br.sc.java.core.DSL;
 import br.sc.java.page.RegistrationChallengePage;
 
 @RunWith(Parameterized.class)
 public class TesteRegrasCadastro extends BaseTeste{
 
-	private DSL dsl;
 	private RegistrationChallengePage page;
 
 	@Parameter
@@ -39,7 +37,6 @@ public class TesteRegrasCadastro extends BaseTeste{
 	@Before
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL();
 		page = new RegistrationChallengePage();
 	}
 
@@ -73,7 +70,7 @@ public class TesteRegrasCadastro extends BaseTeste{
 			page.setComidaVegetariano();
 		page.setEsporte(esportes);
 		page.cadastrar();
-		Assert.assertEquals(msg, dsl.alertaObterTextoEAceita());
+		Assert.assertEquals(msg, page.alertaObterTextoEAceita());
 
 	}
 

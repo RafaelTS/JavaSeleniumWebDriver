@@ -1,26 +1,22 @@
 package br.sc.java.test;
-import static br.sc.java.core.DriverFactory.getDriver;
 
+import static br.sc.java.core.DriverFactory.getDriver;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import br.sc.java.core.BaseTeste;
-import br.sc.java.core.DSL;
 import br.sc.java.page.RegistrationChallengePage;
 
 public class RulesChallenge extends BaseTeste {
 
 	/*
 	 * Para executar essa prova as regras são: Validar o alerta no campo nome
-	 * Validar o alerta no campo sobrenome Sexo é obrigatório N pode marcar
-	 * Carne e vegetariano N pode marcar algum esporte e o que é esporte
+	 * Validar o alerta no campo sobrenome Sexo é obrigatório N pode marcar Carne e
+	 * vegetariano N pode marcar algum esporte e o que é esporte
 	 */
 
-	private DSL dsl;
 	private RegistrationChallengePage page;
-	
-	
+
 	@Before
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
@@ -30,18 +26,18 @@ public class RulesChallenge extends BaseTeste {
 
 	@Test
 	public void mustValidateMandatoryName() {
-		
+
 		page.cadastrar();
-		Assert.assertEquals("msg", dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("msg", page.alertaObterTextoEAceita());
 
 	}
 
 	@Test
 	public void mustValidateMandatoryLastName() {
-		
+
 		page.setNome("Rafael");
 		page.cadastrar();
-		Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("Sobrenome eh obrigatorio", page.alertaObterTextoEAceita());
 
 	}
 
@@ -51,9 +47,10 @@ public class RulesChallenge extends BaseTeste {
 		page.setNome("Rafael");
 		page.setSobrenome("Teixeira");
 		page.cadastrar();
-		Assert.assertEquals("Sexo eh obrigatorio", dsl.alertaObterTextoEAceita());
-		
-		//continuar daqui e validar porque não tem que trocar a janela.... deve ter na aula de dsl no cmoeço
+		Assert.assertEquals("Sexo eh obrigatorio", page.alertaObterTextoEAceita());
+
+		// continuar daqui e validar porque não tem que trocar a janela.... deve ter na
+		// aula de page no cmoeço
 
 	}
 
@@ -66,7 +63,7 @@ public class RulesChallenge extends BaseTeste {
 		page.setComidaCarne();
 		page.setComidaVegetariano();
 		page.cadastrar();
-		Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("Tem certeza que voce eh vegetariano?", page.alertaObterTextoEAceita());
 
 	}
 
@@ -79,7 +76,7 @@ public class RulesChallenge extends BaseTeste {
 		page.setComidaCarne();
 		page.setEsporte("Natacao", "O que eh esporte?");
 		page.cadastrar();
-		Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("Voce faz esporte ou nao?", page.alertaObterTextoEAceita());
 
 	}
 }

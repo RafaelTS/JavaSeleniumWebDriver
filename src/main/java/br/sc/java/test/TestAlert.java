@@ -1,62 +1,52 @@
 package br.sc.java.test;
-import org.junit.After;
+import static br.sc.java.core.DriverFactory.getDriver;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.sc.java.core.DSL;
+import br.sc.java.core.BaseTeste;
+import br.sc.java.page.RegistrationChallengePage;
 
-public class TestAlert {
+public class TestAlert extends BaseTeste {
 	
-	private WebDriver driver;
-	private DSL dsl;
-	
+	private RegistrationChallengePage page;
+
 	@Before
 	public void inicializa() {
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-				
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		page = new RegistrationChallengePage();
 	}
 	
-	@After
-	public void finaliza() {
-		driver.quit();
-	}
-
 	@Test
 	public void mustInteractWithSimpleAlert() {
 		
-		dsl.clicarBotao("alert");
-		String texto = dsl.alertaObterTextoEAceita();
+		page.clicarBotao("alert");
+		String texto = page.alertaObterTextoEAceita();
 		Assert.assertEquals("Alert Simples", texto);
 		
-		dsl.escrever("elementosForm:nome", texto);
+		page.escrever("elementosForm:nome", texto);
 	}
 	
 	@Test
 	public void mustInteractWithConfirmAlert() {
 		
-		dsl.clicarBotao("confirm");
-		Assert.assertEquals("Confirm Simples", dsl.alertaObterTextoEAceita());
-		Assert.assertEquals("Confirmado", dsl.alertaObterTextoEAceita());
+		page.clicarBotao("confirm");
+		Assert.assertEquals("Confirm Simples", page.alertaObterTextoEAceita());
+		Assert.assertEquals("Confirmado", page.alertaObterTextoEAceita());
 		
-		dsl.clicarBotao("confirm");
-		Assert.assertEquals("Confirm Simples", dsl.alertaObterTextoENega());
-		Assert.assertEquals("Negado", dsl.alertaObterTextoENega());
+		page.clicarBotao("confirm");
+		Assert.assertEquals("Confirm Simples", page.alertaObterTextoENega());
+		Assert.assertEquals("Negado", page.alertaObterTextoENega());
 				
 	}
 	
 	@Test
 	public void mustInteractWithPromptAlert() {
 		
-		dsl.clicarBotao("prompt");
-		Assert.assertEquals("Digite um numero", dsl.alertaObterTexto());
-		dsl.alertaEscrever("12");
-		Assert.assertEquals("Era 12?", dsl.alertaObterTextoEAceita());
-		Assert.assertEquals(":D?", dsl.alertaObterTextoEAceita());
-				
+		page.clicarBotao("prompt");
+		Assert.assertEquals("Digite um numero", page.alertaObterTexto());
+		page.alertaEscrever("12");
+		Assert.assertEquals("Era 12?", page.alertaObterTextoEAceita());
 	}
 }

@@ -1,4 +1,4 @@
-	package br.sc.java.test;
+package br.sc.java.test;
 import static br.sc.java.core.DriverFactory.getDriver;
 import static br.sc.java.core.DriverFactory.killDriver;
 
@@ -13,16 +13,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
-import br.sc.java.core.DSL;
+import br.sc.java.core.BaseTeste;
+import br.sc.java.page.FirstStepsPage;
 
-public class FirstSteps {
+public class FirstSteps extends BaseTeste{
 
-	private DSL dsl;
+	private FirstStepsPage page;
 
 	@Before
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL();
+		page = new FirstStepsPage();
 
 	}
 
@@ -33,47 +34,48 @@ public class FirstSteps {
 
 	@Test
 	public void mustInteractWithTextField() {
-		dsl.escrever("elementosForm:nome", "Teste de Escrita");
-		Assert.assertEquals("Teste de Escrita", dsl.obterValorCampo("elementosForm:nome"));
+		page.setNome1("Teste de Escrita");
+		
+		//Assert.assertEquals("Teste de Escrita")page.obterNome());
 
 	}
 	
 	@Test
 	public void testTextFieldDuplo(){
 		
-		dsl.escrever("elementosForm:nome", "Rafael");
-		Assert.assertEquals("Rafael", dsl.obterValorCampo("elementosForm:nome"));
-		dsl.escrever("elementosForm:nome", "Raquel");
-		Assert.assertEquals("Raquel", dsl.obterValorCampo("elementosForm:nome"));
+		page.escrever("elementosForm:nome", "Rafael");
+		Assert.assertEquals("Rafael", page.obterValorCampo("elementosForm:nome"));
+		page.escrever("elementosForm:nome", "Raquel");
+		Assert.assertEquals("Raquel", page.obterValorCampo("elementosForm:nome"));
 		
 	}
 
 	@Test
 	public void mustInteractWithTextArea() {
-		dsl.escrever("elementosForm:sugestoes", "Teste \n quer dizer nova linha");
-		Assert.assertEquals("Teste \n quer dizer nova linha", dsl.obterValorCampo("elementosForm:sugestoes"));
+		page.escrever("elementosForm:sugestoes", "Teste \n quer dizer nova linha");
+		Assert.assertEquals("Teste \n quer dizer nova linha", page.obterValorCampo("elementosForm:sugestoes"));
 
 	}
 
 	@Test
 	public void mustInteractWithRadioButton() {
-		dsl.clicarRadio("elementosForm:sexo:0");
-		Assert.assertTrue(dsl.isRadioMarcado("elementosForm:sexo:0"));
+		page.clicarRadio("elementosForm:sexo:0");
+		Assert.assertTrue(page.isRadioMarcado("elementosForm:sexo:0"));
 
 	}
 
 	@Test
 	public void mustInteractWithChekbox() {
-		dsl.clicarCheck("elementosForm:comidaFavorita:2");
-		Assert.assertTrue(dsl.isCheckMarcado("elementosForm:comidaFavorita:2"));
+		page.clicarCheck("elementosForm:comidaFavorita:2");
+		Assert.assertTrue(page.isCheckMarcado("elementosForm:comidaFavorita:2"));
 
 	}
 
 	@Test
 	public void mustInteractWithCombo() {
 
-		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
-		Assert.assertEquals("superior", dsl.obterValorCampo("elementosForm:escolaridade"));
+		page.selecionarCombo("elementosForm:escolaridade", "Superior");
+		Assert.assertEquals("superior", page.obterValorCampo("elementosForm:escolaridade"));
 		// this line is for example
 		// combo.selectByIndex(3);
 		// combo.selectByVisibleText("Superior");
@@ -85,23 +87,23 @@ public class FirstSteps {
 	@Test
 	public void mustVerfyValuesCombo() {
 		
-		Assert.assertEquals(8, dsl.obterQuantidadeOpcoesCombo("elementosForm:escolaridade"));
-		Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:escolaridade", "Mestrado"));
+		Assert.assertEquals(8, page.obterQuantidadeOpcoesCombo("elementosForm:escolaridade"));
+		Assert.assertTrue(page.verificarOpcaoCombo("elementosForm:escolaridade", "Mestrado"));
 
 	}
 
 	@Test
 	public void mustInteractWithMultiplusCombos() {
 
-		dsl.selecionarCombo("elementosForm:esportes", "Futebol");
-		dsl.selecionarCombo("elementosForm:esportes", "Corrida");
-		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
+		page.selecionarCombo("elementosForm:esportes", "Futebol");
+		page.selecionarCombo("elementosForm:esportes", "Corrida");
+		page.selecionarCombo("elementosForm:esportes", "O que eh esporte?");
 
-		List<String> opcoesMarcadas = dsl.obterValoresCombo("elementosForm:esportes");
+		List<String> opcoesMarcadas = page.obterValoresCombo("elementosForm:esportes");
 		Assert.assertEquals(3, opcoesMarcadas.size());
 
-		dsl.deselecionarCombo("elementosForm:esportes", "Corrida");
-		opcoesMarcadas = dsl.obterValoresCombo("elementosForm:esportes");
+		page.deselecionarCombo("elementosForm:esportes", "Corrida");
+		opcoesMarcadas = page.obterValoresCombo("elementosForm:esportes");
 		Assert.assertEquals(2, opcoesMarcadas.size());
 		Assert.assertTrue(opcoesMarcadas.containsAll(Arrays.asList("Natacao", "O que eh esporte?")));
 
@@ -110,7 +112,7 @@ public class FirstSteps {
 	@Test
 	public void mustInteractWithButtons() {
 
-		dsl.clicarBotao("ButtonSimple");
+		page.clicarBotao("ButtonSimple");
 
 		WebElement botao = getDriver().findElement(By.id("ButtonSimple"));
 		Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
@@ -120,15 +122,15 @@ public class FirstSteps {
 	@Test
 	public void mustInteractWithLinks() {
 
-		dsl.clicarLink("Voltar");
-		Assert.assertEquals("Voltou!", dsl.obterTexto("resultado"));
+		page.clicarLink("Voltar");
+		Assert.assertEquals("Voltou!", page.obterTexto("resultado"));
 	}
 
 	@Test
 	public void mustSearchTextInPage() {
 
-		Assert.assertEquals("Campo de Treinamento", dsl.obterTexto(By.tagName("h3")));
-		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", dsl.obterTexto(By.className("facilAchar")));
+		Assert.assertEquals("Campo de Treinamento", page.obterTexto(By.tagName("h3")));
+		Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", page.obterTexto(By.className("facilAchar")));
 
 	}
 	@Test
@@ -143,7 +145,7 @@ public class FirstSteps {
 	
 	@Test
 	public void deveClicarBotaoTabela(){
-		dsl.clicarBotaoTabela("Escolaridade", "Mestrado", "Radio", "elementosForm:tableUsuarios");
+		page.clicarBotaoTabela("Escolaridade", "Mestrado", "Radio", "elementosForm:tableUsuarios");
 	}
 	
 }
