@@ -15,15 +15,18 @@ import org.openqa.selenium.WebElement;
 
 import br.sc.java.core.BaseTeste;
 import br.sc.java.page.FirstStepsPage;
+import br.sc.java.page.RegistrationChallengePage;
 
 public class FirstSteps extends BaseTeste{
 
-	private FirstStepsPage page;
+	private FirstStepsPage pageStep;
+	private RegistrationChallengePage page;
 
 	@Before
 	public void inicializa() {
 		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		page = new FirstStepsPage();
+		pageStep = new FirstStepsPage();
+		page = new RegistrationChallengePage();
 
 	}
 
@@ -34,48 +37,48 @@ public class FirstSteps extends BaseTeste{
 
 	@Test
 	public void mustInteractWithTextField() {
-		page.setNome1("Teste de Escrita");
-		
-		//Assert.assertEquals("Teste de Escrita")page.obterNome());
+		page.setNome("Teste de Escrita");
+		Assert.assertEquals("Teste de Escrita", pageStep.obterNome());
 
 	}
 	
 	@Test
-	public void testTextFieldDuplo(){
+	public void testTextFieldDuplo() {
 		
-		page.escrever("elementosForm:nome", "Rafael");
-		Assert.assertEquals("Rafael", page.obterValorCampo("elementosForm:nome"));
-		page.escrever("elementosForm:nome", "Raquel");
-		Assert.assertEquals("Raquel", page.obterValorCampo("elementosForm:nome"));
-		
+		page.setNome("Rafael"); 
+		Assert.assertEquals("Rafael", pageStep.obterNome()); 
+		page.setNome("Raquel");
+		Assert.assertEquals("Raquel", pageStep.obterNome());
 	}
 
 	@Test
 	public void mustInteractWithTextArea() {
-		page.escrever("elementosForm:sugestoes", "Teste \n quer dizer nova linha");
-		Assert.assertEquals("Teste \n quer dizer nova linha", page.obterValorCampo("elementosForm:sugestoes"));
+		pageStep.setSugestao("Teste \n quer dizer nova linha");
+		Assert.assertEquals("Teste \n quer dizer nova linha", pageStep.obterSugestoes());
 
 	}
-
+	//Thread.sleep(3000); // not good
 	@Test
 	public void mustInteractWithRadioButton() {
-		page.clicarRadio("elementosForm:sexo:0");
-		Assert.assertTrue(page.isRadioMarcado("elementosForm:sexo:0"));
+		//corrigir abaixo
+		page.setSexoMasculino();
+		Assert.assertTrue(pageStep.sexoMasculinoMarcado());
+		//Assert.assertTrue(page.isRadioMarcado("elementosForm:sexo:0"));
 
 	}
 
 	@Test
 	public void mustInteractWithChekbox() {
-		page.clicarCheck("elementosForm:comidaFavorita:2");
-		Assert.assertTrue(page.isCheckMarcado("elementosForm:comidaFavorita:2"));
+		page.setComidaCarne();
+		Assert.assertEquals("Carne", page.obterComidaCadastro());
 
 	}
 
 	@Test
 	public void mustInteractWithCombo() {
 
-		page.selecionarCombo("elementosForm:escolaridade", "Superior");
-		Assert.assertEquals("superior", page.obterValorCampo("elementosForm:escolaridade"));
+		page.setEscolaridade("Superior");
+		Assert.assertEquals("Superior", page.obterEscolaridadeCadastro());
 		// this line is for example
 		// combo.selectByIndex(3);
 		// combo.selectByVisibleText("Superior");
