@@ -49,9 +49,6 @@ public class RulesChallenge extends BaseTeste {
 		page.cadastrar();
 		Assert.assertEquals("Sexo eh obrigatorio", page.alertaObterTextoEAceita());
 
-		// continuar daqui e validar porque não tem que trocar a janela.... deve ter na
-		// aula de page no cmoeço
-
 	}
 
 	@Test

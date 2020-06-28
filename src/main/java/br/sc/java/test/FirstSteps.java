@@ -37,7 +37,7 @@ public class FirstSteps extends BaseTeste{
 
 	@Test
 	public void mustInteractWithTextField() {
-		page.setNome("Teste de Escrita");
+		pageStep.setNome("Teste de Escrita");
 		Assert.assertEquals("Teste de Escrita", pageStep.obterNome());
 
 	}
@@ -60,25 +60,23 @@ public class FirstSteps extends BaseTeste{
 	//Thread.sleep(3000); // not good
 	@Test
 	public void mustInteractWithRadioButton() {
-		//corrigir abaixo
 		page.setSexoMasculino();
-		Assert.assertTrue(pageStep.sexoMasculinoMarcado());
-		//Assert.assertTrue(page.isRadioMarcado("elementosForm:sexo:0"));
-
+		Assert.assertTrue(pageStep.isSexoMasculinoMarcado());
+		
 	}
 
 	@Test
 	public void mustInteractWithChekbox() {
 		page.setComidaCarne();
-		Assert.assertEquals("Carne", page.obterComidaCadastro());
+		Assert.assertTrue(pageStep.isCheckCarneMarcado());
 
 	}
 
 	@Test
 	public void mustInteractWithCombo() {
 
-		page.setEscolaridade("Superior");
-		Assert.assertEquals("Superior", page.obterEscolaridadeCadastro());
+		page.setEscolaridade("Mestrado");
+		Assert.assertEquals("Mestrado", pageStep.obterNivelEnsino());
 		// this line is for example
 		// combo.selectByIndex(3);
 		// combo.selectByVisibleText("Superior");
@@ -89,10 +87,9 @@ public class FirstSteps extends BaseTeste{
 
 	@Test
 	public void mustVerfyValuesCombo() {
-		
+	
 		Assert.assertEquals(8, page.obterQuantidadeOpcoesCombo("elementosForm:escolaridade"));
 		Assert.assertTrue(page.verificarOpcaoCombo("elementosForm:escolaridade", "Mestrado"));
-
 	}
 
 	@Test
@@ -114,19 +111,17 @@ public class FirstSteps extends BaseTeste{
 
 	@Test
 	public void mustInteractWithButtons() {
-
-		page.clicarBotao("ButtonSimple");
-
-		WebElement botao = getDriver().findElement(By.id("ButtonSimple"));
-		Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+		pageStep.clicarBotaoCliqueMe();
+		Assert.assertEquals("Obrigado!", pageStep.obterMensagemCliqueMe());
 
 	}
 
 	@Test
 	public void mustInteractWithLinks() {
 
-		page.clicarLink("Voltar");
-		Assert.assertEquals("Voltou!", page.obterTexto("resultado"));
+		pageStep.clicarBotaoVoltar();
+		Assert.assertEquals("Voltou!", pageStep.obterTextoBotaoVoltar());
+		
 	}
 
 	@Test

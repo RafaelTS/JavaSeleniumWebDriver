@@ -113,7 +113,7 @@ public class BasePage {
 	
 	public String obterValueElemento(String id) {
 		return getDriver().findElement(By.id(id)).getAttribute("value");
-	}
+	}	
 	
 	/********* Link ************/
 	
